@@ -35,7 +35,7 @@ function App() {
     },
     {
       id: 2,
-      question: "When did the website `Facebook` launch?",
+      question: "When was `Facebook` launched?",
       answers: [
         {
           text: "2004",
@@ -57,7 +57,7 @@ function App() {
     },
     {
       id: 3,
-      question: "Who played the character of harry potter in movie?",
+      question: "Who played the character of Harry Potter in movie?",
       answers: [
         {
           text: "Johnny Deep",
