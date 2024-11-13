@@ -217,3 +217,7 @@
   font-weight: 500;
   margin-top: 0.5em;
 }
+
+.paymentMethods{
+  padding: .5rem;
+}
