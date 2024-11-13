@@ -1,16 +1,24 @@
 import "./App.css";
 import { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom"; 
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  RouterProvider,
+  useNavigate,
+} from "react-router-dom";
+
 import Start from "./components/Start";
 import Timer from "./components/Timer";
 import Trivia from "./components/Trivia";
+import Register from "./components/Register";
 
 function App() {
   const [username, setUsername] = useState(null);
   const [timeOut, setTimeOut] = useState(false);
   const [questionNumber, setQuestionNumber] = useState(1);
   const [earned, setEarned] = useState("D 0");
-  const navigate = useNavigate();
 
   const data = [
     {
@@ -137,7 +145,7 @@ function App() {
       id: 13,
       question: "Which ocean is the largest?",
       answers: [
-        { text: "Atlantic", correct: false }, 
+        { text: "Atlantic", correct: false },
         { text: "Indian", correct: false },
         { text: "Arctic", correct: false },
         { text: "Pacific", correct: true },
@@ -192,69 +200,123 @@ function App() {
       setEarned(moneyPyramid.find((m) => m.id === questionNumber - 1).amount);
   }, [questionNumber, moneyPyramid]);
 
-  const handleRestart = () => {
-    setUsername(null);
-    setQuestionNumber(1);
-    setTimeOut(false);
-    navigate("/Start"); 
-  };
-
   return (
-    <div className="app">
-      {!username ? (
-        <Start setUsername={setUsername} />
-      ) : (
-        <>
-          <div className="main">
-            {timeOut ? (
-              <>
-                <h1 className="endText">You earned: {earned}</h1>
-                <button onClick={handleRestart} className="startButton">
-                  Restart Game
-                </button>
-              </>
-            ) : (
-              <>
-                <div className="top">
-                  <div className="timer">
-                    <Timer
-                      setTimeOut={setTimeOut}
+
+    <Router>
+      <nav>
+        <ul>
+          <li>
+            <Link to={"/"}>Home</Link>
+            <Link to={"/start"}>Start</Link>
+            <Link to={"/quiz"}>Quiz</Link>
+            <Link to={"/register"}>Register</Link>
+          </li>
+        </ul>
+      </nav>
+
+      <div className="app" style={{ marginTop: "20px" }}>
+        <div className="" style={{ width: "75%" }}>
+          <Routes>
+            <Route
+              index
+              path="/"
+              element={
+                <>
+                  <h1>Home Page</h1>
+                  <p>
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                    Molestias nam unde placeat eos quam! Pariatur voluptates
+                    tenetur aut excepturi doloremque corporis aliquid facilis
+                    tempora laudantium perspiciatis. Asperiores sit aspernatur
+                    vel.
+                  </p>
+                </>
+              }
+            />
+            <Route path="start" element={<Start setUsername={setUsername} />} />
+            <Route
+              path="quiz"
+              element={
+                <>
+                  <div className="top">
+                    <div className="timer">
+                      <Timer
+                        setTimeOut={setTimeOut}
+                        questionNumber={questionNumber}
+                      />
+                    </div>
+                  </div>
+                  <div className="bottom">
+                    <Trivia
+                      data={data}
                       questionNumber={questionNumber}
+                      setQuestionNumber={setQuestionNumber}
+                      setTimeOut={setTimeOut}
                     />
                   </div>
-                </div>
-                <div className="bottom">
-                  <Trivia
-                    data={data}
-                    questionNumber={questionNumber}
-                    setQuestionNumber={setQuestionNumber}
-                    setTimeOut={setTimeOut}
-                  />
-                </div>
-              </>
+                </>
+              }
+            />
+            <Route
+              path="register"
+              element={<Register setUsername={setUsername} />}
+            />
+          </Routes>
+        </div>
+        <div className="pyramid" style={{ width: "25%" }}>
+          <ul className="moneyList">
+            {moneyPyramid.map((m) => (
+              <li
+                key={m.id}
+                className={
+                  questionNumber === m.id
+                    ? "moneyListItem active"
+                    : "moneyListItem"
+                }
+              >
+                <span className="moneyListItemNumber">{m.id}</span>
+                <span className="moneyListItemAmount">{m.amount}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <>
+          <div className="main">
+            {timeOut && (
+              <RestartButton
+                earned={earned}
+                cb={() => {
+                  setUsername(null);
+                  setQuestionNumber(1);
+                  setTimeOut(false);
+                }}
+              />
             )}
           </div>
-          <div className="pyramid">
-            <ul className="moneyList">
-              {moneyPyramid.map((m) => (
-                <li
-                  key={m.id}
-                  className={
-                    questionNumber === m.id
-                      ? "moneyListItem active"
-                      : "moneyListItem"
-                  }
-                >
-                  <span className="moneyListItemNumber">{m.id}</span>
-                  <span className="moneyListItemAmount">{m.amount}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
         </>
-      )}
-    </div>
+      </div>
+    </Router>
+
   );
 }
 
 export default App;
+
+function RestartButton({ cb, earned }) {
+  const navigate = useNavigate();
+
+  const handleRestart = () => {
+    cb();
+    navigate("/Start");
+  };
+
+  return (
+    <>
+      <h1 className="endText">You earned: {earned}</h1>
+      <button onClick={handleRestart} className="startButton">
+        Restart Game
+      </button>
+    </>
+  );
+}
