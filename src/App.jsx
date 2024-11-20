@@ -203,19 +203,26 @@ function App() {
   return (
 
     <Router>
-      <nav>
-        <ul>
+      <nav className="bg-gray-800 text-white p-4">
+        <ul className="flex space-x-4">
           <li>
-            <Link to={"/"}>Home</Link>
-            <Link to={"/start"}>Start</Link>
-            <Link to={"/quiz"}>Quiz</Link>
-            <Link to={"/register"}>Register</Link>
+            <Link to="/" className="hover:underline">Home</Link>
+          </li>
+          <li>
+            <Link to="/start" className="hover:underline">Start</Link>
+          </li>
+          <li>
+            <Link to="/quiz" className="hover:underline">Quiz</Link>
+          </li>
+          <li>
+            <Link to="/register" className="hover:underline">Register</Link>
           </li>
         </ul>
       </nav>
 
-      <div className="app" style={{ marginTop: "20px" }}>
-        <div className="" style={{ width: "75%" }}>
+
+      <div className="app mt-5">
+        <div className="w-3/4">
           <Routes>
             <Route
               index
@@ -238,8 +245,8 @@ function App() {
               path="quiz"
               element={
                 <>
-                  <div className="top">
-                    <div className="timer">
+                  <div className="flex flex-col lg:flex-row">
+                    <div className="flex-1">
                       <Timer
                         setTimeOut={setTimeOut}
                         questionNumber={questionNumber}
@@ -263,7 +270,7 @@ function App() {
             />
           </Routes>
         </div>
-        <div className="pyramid" style={{ width: "25%" }}>
+        <div className="w-1/4">
           <ul className="moneyList">
             {moneyPyramid.map((m) => (
               <li
@@ -274,7 +281,7 @@ function App() {
                     : "moneyListItem"
                 }
               >
-                <span className="moneyListItemNumber">{m.id}</span>
+                <span className="moneyListItemNumber mr-2">{m.id}</span>
                 <span className="moneyListItemAmount">{m.amount}</span>
               </li>
             ))}
@@ -314,7 +321,7 @@ function RestartButton({ cb, earned }) {
   return (
     <>
       <h1 className="endText">You earned: {earned}</h1>
-      <button onClick={handleRestart} className="startButton">
+      <button onClick={handleRestart}  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
         Restart Game
       </button>
     </>

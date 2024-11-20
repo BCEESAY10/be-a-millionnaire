@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 .app {
   min-height: 85vh;
   display: flex;
@@ -18,48 +22,6 @@ p{
   margin: 0 2rem;
   background: #020230;
   padding: 6px;
-}
-
-nav{
-  height: 70px;
-  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.5);
-}
-
-nav ul{
-  display: flex;
-  justify-content: center;
-  justify-items: center;
-}
-nav ul li{
-  list-style: none;
-}
-
-nav ul li a{
-  text-decoration: none;
-  padding: 0 2rem 0 2rem;
-  color: #020230;
-  font-weight: 700;
-}
-
-.pyramid {
-  width: 25%;
-  background-color: #020230;
-  display: none;
-  align-items: center;
-  justify-content: center;
-}
-
-.moneyList {
-  padding: 20px;
-  list-style: none;
-  width: 100%;
-}
-
-.moneyListItem {
-  display: flex;
-  align-items: center;
-  padding: 5px;
-  border-radius: 5px;
 }
 
 .moneyListItem.active {
