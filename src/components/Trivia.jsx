@@ -55,7 +55,7 @@ export default function Trivia({
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-90px)] bg-black text-white px-4">
+    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-90px)] mr-10 text-white px-4" style={{background: '#020230'}}>
       <div className="text-2xl font-bold mb-6 text-center">{question?.question}</div>
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 w-full max-w-xl">
         {question?.answers.map((a) => (

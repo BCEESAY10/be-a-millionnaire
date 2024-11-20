@@ -221,7 +221,7 @@ function App() {
       </nav>
 
 
-      <div className="app mt-5">
+      <div className="app min-h-[85vh] flex text-white" style={{ background: `linear-gradient(to bottom, rgba(0, 0, 0, 0), #020230), url("https://cdn6.f-cdn.com/contestentries/2363114/64715125/65b2727d75c29_thumb900.jpg") center` }}>
         <div className="w-3/4">
           <Routes>
             <Route
@@ -229,8 +229,8 @@ function App() {
               path="/"
               element={
                 <>
-                  <h1>Home Page</h1>
-                  <p>
+                  <h1 className="text-center bg-gray-500 text-white font-bold text-[35px]" style={{marginRight: '160px', paddingLeft: '16px'}}>Be a Millionnaire</h1>
+                  <p className="bg-gray-500 text-white text-[20px]" style={{marginRight: '160px', paddingLeft: '16px'}}>
                   "Be-A-Millionaire" is a quiz-based game inspired by the popular TV show from the early 2000s. This interactive platform offers players the chance to test their knowledge and win money by answering a series of questions. It features a simple user interface starting with a login page, where returning users can sign in, and new users can register. During registration, a one-time fee of D200 is required, payable through a mobile money app - WAVE, APS, Afrimoney or Yonna.
 
 Once registered, players can jump into the game and answer timed questions, with 30 seconds allocated per question. For every correct answer, they win D100 and move on to the next question, progressing toward the ultimate goal of earning substantial rewards. "Be-A-Millionaire" combines the thrill of competition with the simplicity of mobile payments, providing an engaging experience where knowledge directly translates into winnings.
@@ -244,7 +244,7 @@ Once registered, players can jump into the game and answer timed questions, with
               element={
                 <>
                   <div className="flex flex-col lg:flex-row">
-                    <div className="flex-1">
+                    <div className="ml-24 w-[50px] h-[50px] bg-gray-200 text-gray-900 flex items-center justify-center text-[20px] font-bold rounded-[20px]">
                       <Timer
                         setTimeOut={setTimeOut}
                         questionNumber={questionNumber}
@@ -268,7 +268,7 @@ Once registered, players can jump into the game and answer timed questions, with
             />
           </Routes>
         </div>
-        <div className="w-1/4">
+        <div className="w-1/4 mt-12">
           <ul className="moneyList">
             {moneyPyramid.map((m) => (
               <li
@@ -279,15 +279,15 @@ Once registered, players can jump into the game and answer timed questions, with
                     : "moneyListItem"
                 }
               >
-                <span className="moneyListItemNumber mr-2">{m.id}</span>
-                <span className="moneyListItemAmount">{m.amount}</span>
+                <span className="w-1/3 text-[18px] font-thin mr-2">{m.id}</span>
+                <span className="text-[20px] font-semibold">{m.amount}</span>
               </li>
             ))}
           </ul>
         </div>
 
         <>
-          <div className="main">
+          <div>
             {timeOut && (
               <RestartButton
                 earned={earned}
@@ -318,7 +318,7 @@ function RestartButton({ cb, earned }) {
 
   return (
     <>
-      <h1 className="endText">You earned: {earned}</h1>
+      <h1 className="h-max bg-blue-500 text-white p-4">You earned: {earned}</h1>
       <button onClick={handleRestart}  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
         Restart Game
       </button>
